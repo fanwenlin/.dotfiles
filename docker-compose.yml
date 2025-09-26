@@ -1,0 +1,20 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: ${BASE_IMAGE:-mcr.microsoft.com/devcontainers/base:ubuntu}
+        NODE_MAJOR: ${NODE_MAJOR:-18}
+        GO_VERSION: ${GO_VERSION:-1.18.10}
+    image: ${IMAGE_NAME:-dotfiles-dev}:latest
+    container_name: ${CONTAINER_NAME:-dotfiles-dev}
+    working_dir: /workspaces
+    volumes:
+      - ./:/workspaces/.dotfiles
+      - ${HOME}/.ssh:/home/vscode/.ssh:ro
+    environment:
+      - TZ=${TZ:-UTC}
+    tty: true
+    stdin_open: true
+    command: ["zsh"]
