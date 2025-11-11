@@ -84,7 +84,7 @@ fi
 # Go env in zshrc
 append_once "export GOROOT=/usr/local/go" "$ZSHRC"
 append_once "export GOPATH=\"${USER_HOME}/go\"" "$ZSHRC"
-append_once "export PATH=\"$GOROOT/bin:$GOPATH/bin:$PATH\"" "$ZSHRC"
+append_once 'export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"' "$ZSHRC"
 
 # Copy repo .gitconfig into user home if present
 if [ -f ".gitconfig" ] && [ ! -f "${USER_HOME}/.gitconfig" ]; then
