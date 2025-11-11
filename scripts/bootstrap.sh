@@ -8,6 +8,7 @@ USER_NAME=${SUDO_USER:-${USER}}
 USER_HOME=$(getent passwd "$USER_NAME" | cut -d: -f6)
 ZSHRC="${USER_HOME}/.zshrc"
 OHMY="${USER_HOME}/.oh-my-zsh"
+ZSH_CUSTOM="${OHMY}/custom"
 NODE_MAJOR=${NODE_MAJOR:-22}
 GO_VERSION=${GO_VERSION:-1.23.2}
 export DEBIAN_FRONTEND=noninteractive
@@ -23,10 +24,25 @@ append_once() {
   grep -Fqx "$line" "$file" 2>/dev/null || echo "$line" >> "$file"
 }
 
+install_omz_plugin() {
+  local name="$1" repo="$2"
+  local dest="${ZSH_CUSTOM}/plugins/${name}"
+
+  if [ -d "$dest/.git" ]; then
+    echo "==> Updating Oh My Zsh plugin ${name}"
+    sudo -u "$USER_NAME" git -C "$dest" pull --ff-only >/dev/null
+  elif [ -d "$dest" ]; then
+    echo "==> Oh My Zsh plugin ${name} already present (non-git), skipping"
+  else
+    echo "==> Installing Oh My Zsh plugin ${name}"
+    sudo -u "$USER_NAME" git clone --depth 1 "$repo" "$dest"
+  fi
+}
+
 sudo apt-get update
 sudo apt-get install -y --no-install-recommends \
   ca-certificates curl git zsh locales build-essential unzip \
-  zsh-autosuggestions zsh-syntax-highlighting autojump thefuck
+  autojump thefuck
 
 # Locale
 sudo sed -i 's/# en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen || true
@@ -42,6 +58,11 @@ if [ ! -d "$OHMY" ]; then
   echo "==> Installing Oh My Zsh"
   sudo -u "$USER_NAME" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" '' --unattended
 fi
+
+sudo -u "$USER_NAME" mkdir -p "${ZSH_CUSTOM}/plugins"
+install_omz_plugin "zsh-autosuggestions" "https://github.com/zsh-users/zsh-autosuggestions"
+install_omz_plugin "zsh-syntax-highlighting" "https://github.com/zsh-users/zsh-syntax-highlighting"
+install_omz_plugin "zsh-completions" "https://github.com/zsh-users/zsh-completions"
 
 # Ensure .zshrc exists
 sudo -u "$USER_NAME" touch "$ZSHRC"
