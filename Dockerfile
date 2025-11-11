@@ -2,8 +2,8 @@ ARG BASE_IMAGE=mcr.microsoft.com/devcontainers/base:ubuntu
 FROM ${BASE_IMAGE}
 
 ARG USERNAME=vscode
-ARG NODE_MAJOR=18
-ARG GO_VERSION=1.18.10
+ARG NODE_MAJOR=22
+ARG GO_VERSION=1.23.2
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Base tools and dependencies
@@ -21,7 +21,7 @@ RUN sed -i 's/# en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen \
     && update-locale LANG=en_US.UTF-8
 ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
-# Install Node.js 18 via NodeSource
+# Install Node.js 22 via NodeSource
 RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - \
     && apt-get update \
     && apt-get install -y --no-install-recommends nodejs \

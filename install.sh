@@ -13,15 +13,15 @@ sudo apt-get update && sudo apt-get install build-essential
 brew install gcc
 
 # install node
-brew install node@18
+brew install node@22
 
 # node environment parameter
-echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/node@18/bin:$PATH"' >> ~/.zshrc
-echo 'export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/node@18/lib"' >> ~/.zshrc
-echo 'export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/node@18/include"' >> ~/.zshrc
+echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/node@22/bin:$PATH"' >> ~/.zshrc
+echo 'export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/node@22/lib"' >> ~/.zshrc
+echo 'export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/node@22/include"' >> ~/.zshrc
 
 # golang
-brew install go@1.18
+brew install go@1.23
 
 # go environment parameter
-echo 'export PATH="/home/fanwenlin/.linuxbrew/opt/go@1.18/bin:$PATH"' >> ~/.zshrc
+echo 'export PATH="/home/fanwenlin/.linuxbrew/opt/go@1.23/bin:$PATH"' >> ~/.zshrc

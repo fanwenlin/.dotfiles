@@ -8,8 +8,8 @@ PROJECT=${PROJECT:-dotfiles}
 IMAGE_NAME=${IMAGE_NAME:-dotfiles-dev}
 CONTAINER_NAME=${CONTAINER_NAME:-dotfiles-dev}
 BASE_IMAGE=${BASE_IMAGE:-mcr.microsoft.com/devcontainers/base:ubuntu}
-NODE_MAJOR=${NODE_MAJOR:-18}
-GO_VERSION=${GO_VERSION:-1.18.10}
+NODE_MAJOR=${NODE_MAJOR:-22}
+GO_VERSION=${GO_VERSION:-1.23.2}
 TZ=${TZ:-UTC}
 
 COMPOSE="docker compose"

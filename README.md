@@ -6,7 +6,7 @@ Overview
 - Adds a helper to manage the container lifecycle (`scripts/devcontainer.sh`).
 
 Repo contents
-- `Dockerfile`: Installs zsh, Oh My Zsh (unattended), zsh plugins, fzf, autojump, thefuck, Node.js 18, Go 1.18.
+- `Dockerfile`: Installs zsh, Oh My Zsh (unattended), zsh plugins, fzf, autojump, thefuck, Node.js 22, Go 1.23.
 - `docker-compose.yml`: Defines service `dev`; mounts repo at `/workspaces/.dotfiles`; starts `zsh`.
 - `scripts/bootstrap.sh`: One-shot Ubuntu setup (zsh + tooling), safe to re-run.
 - `scripts/devcontainer.sh`: Helper CLI to build/run/exec the dev container with configurable parameters.
@@ -17,7 +17,7 @@ Why consolidate
 - New flow defines strict order, removes prompts, and captures dependencies.
 
 Setup order (dependencies)
-- System packages → default shell zsh → Oh My Zsh + plugins → fzf → helpers (thefuck, autojump) → Node 18 → Go 1.18 → shell env + dotfiles.
+- System packages → default shell zsh → Oh My Zsh + plugins → fzf → helpers (thefuck, autojump) → Node 22 → Go 1.23 → shell env + dotfiles.
 
 Quick start (docker compose)
 - Start: `docker compose up --build -d`
@@ -33,9 +33,9 @@ Helper script (recommended)
 
 Configurable parameters
 - Build args (Dockerfile/compose):
-  - `BASE_IMAGE` (default `mcr.microsoft.com/devcontainers/base:ubuntu`)
-  - `NODE_MAJOR` (default `18`)
-  - `GO_VERSION` (default `1.18.10`)
+- `BASE_IMAGE` (default `mcr.microsoft.com/devcontainers/base:ubuntu`)
+  - `NODE_MAJOR` (default `22`)
+  - `GO_VERSION` (default `1.23.2`)
 - Compose vars:
   - `IMAGE_NAME` (default `dotfiles-dev`)
   - `CONTAINER_NAME` (default `dotfiles-dev`)
@@ -50,7 +50,7 @@ Multiple instances
 
 Host setup (optional)
 - For Ubuntu hosts, run: `chmod +x scripts/bootstrap.sh && ./scripts/bootstrap.sh`
-- This installs zsh, Oh My Zsh, plugins, Node 18, Go 1.18 and updates `.zshrc` idempotently.
+- This installs zsh, Oh My Zsh, plugins, Node 22, Go 1.23 and updates `.zshrc` idempotently.
 
 Notes
 - thefuck alias in `.zshrc` is guarded; shell won’t break if its Python deps change.

@@ -5,8 +5,8 @@ services:
       dockerfile: Dockerfile
       args:
         BASE_IMAGE: ${BASE_IMAGE:-mcr.microsoft.com/devcontainers/base:ubuntu}
-        NODE_MAJOR: ${NODE_MAJOR:-18}
-        GO_VERSION: ${GO_VERSION:-1.18.10}
+        NODE_MAJOR: ${NODE_MAJOR:-22}
+        GO_VERSION: ${GO_VERSION:-1.23.2}
     image: ${IMAGE_NAME:-dotfiles-dev}:latest
     container_name: ${CONTAINER_NAME:-dotfiles-dev}
     working_dir: /workspaces

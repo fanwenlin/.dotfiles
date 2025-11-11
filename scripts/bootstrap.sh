@@ -2,14 +2,14 @@
 set -euo pipefail
 
 # Unified non-interactive setup for Ubuntu/debian-like systems
-# Installs: zsh, oh-my-zsh, plugins, fzf, autojump, thefuck, Node.js 18, Go 1.18, configures shell
+# Installs: zsh, oh-my-zsh, plugins, fzf, autojump, thefuck, Node.js 22, Go 1.23, configures shell
 
 USER_NAME=${SUDO_USER:-${USER}}
 USER_HOME=$(getent passwd "$USER_NAME" | cut -d: -f6)
 ZSHRC="${USER_HOME}/.zshrc"
 OHMY="${USER_HOME}/.oh-my-zsh"
-NODE_MAJOR=${NODE_MAJOR:-18}
-GO_VERSION=${GO_VERSION:-1.18.10}
+NODE_MAJOR=${NODE_MAJOR:-22}
+GO_VERSION=${GO_VERSION:-1.23.2}
 export DEBIAN_FRONTEND=noninteractive
 
 echo "==> Running bootstrap as ${USER_NAME} (home=${USER_HOME})"
@@ -64,14 +64,14 @@ if [ ! -d "${USER_HOME}/.fzf" ]; then
   sudo -u "$USER_NAME" "${USER_HOME}/.fzf/install" --key-bindings --completion --no-bash --no-fish --no-update-rc
 fi
 
-# Node.js 18 via NodeSource
+# Node.js 22 via NodeSource
 if ! require_cmd node || [ "$(node -v | sed 's/v//' | cut -d. -f1)" -ne "$NODE_MAJOR" ]; then
   echo "==> Installing Node.js ${NODE_MAJOR}.x"
   curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | sudo -E bash -
   sudo apt-get install -y --no-install-recommends nodejs
 fi
 
-# Go 1.18
+# Go 1.23
 if ! require_cmd go || ! go version | grep -q "go${GO_VERSION%%.*}"; then
   echo "==> Installing Go ${GO_VERSION}"
   tmp=$(mktemp -d)
